@@ -1,0 +1,7 @@
+상품평의 5점과 4점을 Positive로
+상품평의 2점과 1점을 Negative로 분류함
+
+비율을 50%로 맞춤
+
+positive :  64978
+negative :  64979
