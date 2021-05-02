@@ -1,0 +1,94 @@
+colab data preprocessing
+
+1. colab에 Mecab설치
+2. refine.py / refine.regex.txt / tokenize.sh 파일 업로드
+3. label	data 로 이루어진 tsv파일 업로드
+4. !bash실행
+5. python refine.py refine.regex.txt 1 < refine전_파일명 > refine후_파일명
+6. chmod 555 ./tokenize.sh 실행 (권한 부여)
+7. ./tokenize.sh tok전_파일명 tok후_파일명
+
+
+python refine.py refine.regex.txt 0 < /content/sample_data/topic_fasttext.tsv > topic_fasttext.refined.tsv
+
+./tokenize.sh topic_fasttext.refined.tsv topic_fasttext.refined.tok.tsv
+
+
+shuf < shuf전_파일 > shuf후_파일
+
+
+python refine.py refine.regex.txt 1 < test.tsv > test.refined.tsv
+
+
+
+./tokenize.sh 파일명 저정파일명
+
+
+./tokenize.sh test.refined.tsv test.refined.tok.tsv
+
+chmod 555 ./tokenize.sh 
+
+
+
+아무리 생각해도 사람이 레이블링을 해야 설득력이 있을 것 같다.
+
+왜냐면 일괄적으로 레이팅을 긍정부정으로 바꾸고
+
+임베딩으로 토픽을 나눌거면 걍 모든 리뷰를 기계로 하고말지
+
+논문의 설득력이 상당히 떨어짐...
+아니면 긍부정만 사람이 작업할까?
+
+
+그리고 이거 리뷰의 범위를 어디까지 잡을건데??
+
+그리고 하나의 리뷰에 두개의 토픽이 있는경우는 어떡할건데?
+대안1, 그냥 인간이 보기에 가장 두드러진 토픽을 고름
+대안2, 대표적인3~4개정도의 토픽을 고르고 중복되는 것은 다시 인덱싱해서 ...
+
+
+
+
+워드임베딩을 fasttext등을 이용해서 미리 계산하여 넣는 것이 아니라, 
+즉 word embedding vector를 네트워크에 넣어주는 것이 아니라
+
+one-hot vector를 그냥 넣어주고 embedding layer(linear)를 넣어줌
+
+why?
+
+back propagation을 통한 parameter update로 비슷한 word는 비슷한 embedding vector value를 가지게 됨(정확한 워딩이 맞는지는 모르겠다)
+
+즉 input되는 단어가 context에서 비슷한 단어라면 그 값도 비슷한 값을 가지게 된다.
+
+하지만 미리 학습된 word embedding vector를 넣는다면, 이 word embedding vector는 주변단어를 잘 예측하도록 학습된 함수이므로 네트워크의 context와는 다를 수 있음! 내 context가 감성분석인지, 번역인지, 챗봇인지 모르니까 backpropagation을 통해서 embedding layer가 학습되는것이 바랍직함
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+워드네트워크.....
+
+모델을 돌리고 난 결과를 어떻게 해석을 할것인지
+
+리뷰의 작성 시간을 어떻게 
+
+
+
+뉴노멀시대의 개인화된 물류서비스를 위해 고객만족분석을 진행
+
+
+임베딩 - FastText
+https://joyhong.tistory.com/135
+https://frhyme.github.io/nlp/fasttext_pretrained_wiki/
+
+
+https://wikidocs.net/33520
